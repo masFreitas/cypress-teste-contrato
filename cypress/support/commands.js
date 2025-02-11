@@ -6,6 +6,13 @@ Cypress.Commands.add('getUsers', () => {
     cy.request("GET", "/users")
 });
 
+Cypress.Commands.add('getSingleUser', () => {
+    cy.request("GET", "/users").then((response) => {
+        const id = response.body[0].id;
+        cy.request("GET", `/users/${id}`);
+    });
+});
+
 Cypress.Commands.add('createUser', () => {
     cy.request({
         method: 'POST',

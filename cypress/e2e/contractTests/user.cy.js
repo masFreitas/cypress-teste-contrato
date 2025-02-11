@@ -4,6 +4,7 @@ const Ajv = require("ajv");
 const ajv = new Ajv();
 const listAllUserSchema = require("../../support/schemas/user/listAllUserSchema.json");
 const createUserSchema = require("../../support/schemas/user/createUserSchema.json");
+const listSingleUserSchema = require("../../support/schemas/user/listSingleUserSchema.json");
 
 describe("API Contract Test", () => {
     it("List All Users - Should validate the contract", () => {
@@ -13,6 +14,19 @@ describe("API Contract Test", () => {
             expect(response.status).to.eq(200);
 
             const validate = ajv.compile(listAllUserSchema);
+            const valid = validate(response.body);
+
+            expect(valid, "Invalid API contract").to.be.true;
+        });
+    });
+
+    it("List Single Users - Should validate the contract", () => {
+        cy.getSingleUser().as("response");
+
+        cy.get("@response").then((response) => {
+            expect(response.status).to.eq(200);
+
+            const validate = ajv.compile(listSingleUserSchema);
             const valid = validate(response.body);
 
             expect(valid, "Invalid API contract").to.be.true;
