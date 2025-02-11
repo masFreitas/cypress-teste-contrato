@@ -1,11 +1,12 @@
 # Teste de contrato de API com Cypress
 
-Projeto criado para realizar testes de contrato de API com Cypress.
+Projeto criado para realizar estudos sobre testes de contrato de API com Cypress.
 
 ## Utilizado neste projeto
 
 - [NPM](https://www.npmjs.com/);
 - [Cypress](https://cypress.io/)
+- [GoRest](https://gorest.co.in/) - REST API for Testing and Prototyping
 
 ## Instalação
 
@@ -35,6 +36,12 @@ npm i cypress@14.0.2 --save-dev
     "token": ""
 }
 ```
+
+## Criação do Token
+
+- Acessaro site [GoRest](https://gorest.co.in/)
+- Realizar Login
+- Copiar o Token, e colar no aquivo **cypress.env.json**
 
 ## Utilização com interface
 
