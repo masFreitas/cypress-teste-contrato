@@ -27,6 +27,26 @@ Cypress.Commands.add('createUser', () => {
     });
 });
 
+Cypress.Commands.add('updateUserPatch', () => {
+    cy.request("GET", "/users").then((response) => {
+        const id = response.body[0].id;
+        cy.request({
+            method: 'PATCH',
+            url: `/users/${id}`,
+            headers: { Authorization: `Bearer ${Cypress.env('token')}` },
+            body: {
+                name: "Fulano de Tal",
+                email: utils.getRandomEmail()
+            }
+        });
+    });
+});
+
+
+
+// POST COMMANDS
+
+
 Cypress.Commands.add('getPosts', () => {
     cy.request("GET", "/posts")
-})
+});

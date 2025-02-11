@@ -20,7 +20,7 @@ describe("API Contract Test", () => {
         });
     });
 
-    it("List Single Users - Should validate the contract", () => {
+    it("List Single User - Should validate the contract", () => {
         cy.getSingleUser().as("response");
 
         cy.get("@response").then((response) => {
@@ -39,6 +39,23 @@ describe("API Contract Test", () => {
         cy.get("@response").then((response) => {
             expect(response.status).to.eq(201);
             console.log(response.body);
+
+            const validate = ajv.compile(createUserSchema);
+            const valid = validate(response.body);
+
+            expect(valid, "Invalid API contract").to.be.true;
+        });
+    });
+
+    it.only("Update User Details (PATCH) - Should validate the contract", () => {
+
+
+        cy.updateUserPatch().as("response");
+
+        cy.get("@response").then((response) => {
+            console.log(response.body);
+            expect(response.status).to.eq(200);
+            expect(response.body.name).to.eq("Fulano de Tal");
 
             const validate = ajv.compile(createUserSchema);
             const valid = validate(response.body);
