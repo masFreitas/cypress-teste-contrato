@@ -1,19 +1,19 @@
 /// <reference types="cypress" />
 const Ajv = require("ajv");
 const ajv = new Ajv();
-const listAllpostSchema = require("../../support/schemas/post/listAllpostSchema.json");
+const listAllPostSchema = require("../../support/schemas/post/listAllPostSchema.json");
 
 describe("API Contract Test", () => {
     it("GET - Post - Deve validar o contrato", () => {
-        cy.request("GET", "/posts").then(
-                (response) => {
-                    expect(response.status).to.eq(200);
+        cy.getPosts().as("response");
 
-                    const validate = ajv.compile(listAllpostSchema);
-                    const valid = validate(response.body);
+        cy.get("@response").then((response) => {
+            expect(response.status).to.eq(200);
 
-                    expect(valid, "Contrato da API está inválido").to.be.true;
-                }
-            );
+            const validate = ajv.compile(listAllPostSchema);
+            const valid = validate(response.body);
+
+            expect(valid, "Contrato da API está inválido").to.be.true;
+        });
     });
 });

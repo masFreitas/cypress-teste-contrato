@@ -4,7 +4,7 @@ const utils = require("./utils/utils");
 
 Cypress.Commands.add('getUsers', () => {
     cy.request("GET", "/users")
-})
+});
 
 Cypress.Commands.add('createUser', () => {
     cy.request({
@@ -17,5 +17,9 @@ Cypress.Commands.add('createUser', () => {
             gender: 'female',
             status: 'active'
         }
-    })
+    });
 });
+
+Cypress.Commands.add('getPosts', () => {
+    cy.request("GET", "/posts")
+})
