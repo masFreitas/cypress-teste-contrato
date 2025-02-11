@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 const Ajv = require("ajv");
 const ajv = new Ajv();
-const postSchema = require("../../support/schemas/postSchema.json");
+const listAllpostSchema = require("../../support/schemas/post/listAllpostSchema.json");
 
 describe("API Contract Test", () => {
     it("GET - Post - Deve validar o contrato", () => {
@@ -9,7 +9,7 @@ describe("API Contract Test", () => {
                 (response) => {
                     expect(response.status).to.eq(200);
 
-                    const validate = ajv.compile(postSchema);
+                    const validate = ajv.compile(listAllpostSchema);
                     const valid = validate(response.body);
 
                     expect(valid, "Contrato da API está inválido").to.be.true;
