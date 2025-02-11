@@ -4,7 +4,7 @@ const ajv = new Ajv();
 const listAllPostSchema = require("../../support/schemas/post/listAllPostSchema.json");
 
 describe("API Contract Test", () => {
-    it("GET - Post - Deve validar o contrato", () => {
+    it("List All Posts - Should validate the contract", () => {
         cy.getPosts().as("response");
 
         cy.get("@response").then((response) => {
@@ -13,7 +13,7 @@ describe("API Contract Test", () => {
             const validate = ajv.compile(listAllPostSchema);
             const valid = validate(response.body);
 
-            expect(valid, "Contrato da API está inválido").to.be.true;
+            expect(valid, "Invalid API contract").to.be.true;
         });
     });
 });

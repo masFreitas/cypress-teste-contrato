@@ -6,7 +6,7 @@ const listAllUserSchema = require("../../support/schemas/user/listAllUserSchema.
 const createUserSchema = require("../../support/schemas/user/createUserSchema.json");
 
 describe("API Contract Test", () => {
-    it("GET - Users - Deve validar o contrato", () => {
+    it("List All Users - Should validate the contract", () => {
         cy.getUsers().as("response");
 
         cy.get("@response").then((response) => {
@@ -15,12 +15,11 @@ describe("API Contract Test", () => {
             const validate = ajv.compile(listAllUserSchema);
             const valid = validate(response.body);
 
-            expect(valid, "Contrato da API está inválido").to.be.true;
+            expect(valid, "Invalid API contract").to.be.true;
         });
     });
 
-    it("POST - Users - Deve validar o contrato", () => {
-
+    it("Create User - Should validate the contract", () => {
         cy.createUser().as("response");
 
         cy.get("@response").then((response) => {
@@ -30,7 +29,7 @@ describe("API Contract Test", () => {
             const validate = ajv.compile(createUserSchema);
             const valid = validate(response.body);
 
-            expect(valid, "Contrato da API está inválido").to.be.true;
+            expect(valid, "Invalid API contract").to.be.true;
         });
     });
 });
