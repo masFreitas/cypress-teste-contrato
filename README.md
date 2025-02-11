@@ -29,6 +29,13 @@ npm install
 npm i cypress@14.0.2 --save-dev
 ```
 
+- Criar o arquivo **cypress.env.json** na raiz do projeto, e preencher os atributos:
+```json
+{
+    "token": ""
+}
+```
+
 ## Utilização com interface
 
 - Abrir o terminal e rodar o comando abaixo
