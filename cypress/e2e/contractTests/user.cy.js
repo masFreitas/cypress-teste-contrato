@@ -73,4 +73,13 @@ describe("API Contract Test", () => {
             expect(valid, "Invalid API contract").to.be.true;
         });
     });
+
+    it.only("Delete User - Should validate the contract", () => {
+        cy.deleteUser().as("response");
+
+        cy.get("@response").then((response) => {
+            expect(response.status).to.eq(204);
+            expect(response.body).to.be.empty;
+        });
+    });
 });

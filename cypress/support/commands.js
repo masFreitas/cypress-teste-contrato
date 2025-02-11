@@ -59,6 +59,17 @@ Cypress.Commands.add('updateUserPut', () => {
     });
 });
 
+Cypress.Commands.add('deleteUser', () => {
+    cy.request("GET", "/users").then((response) => {
+        const id = response.body[0].id;
+        cy.request({
+            method: 'DELETE',
+            url: `/users/${id}`,
+            headers: { Authorization: `Bearer ${Cypress.env('token')}` }
+        });
+    });
+});
+
 
 // POST COMMANDS
 
