@@ -47,9 +47,7 @@ describe("API Contract Test", () => {
         });
     });
 
-    it.only("Update User Details (PATCH) - Should validate the contract", () => {
-
-
+    it("Update User Details (PATCH) - Should validate the contract", () => {
         cy.updateUserPatch().as("response");
 
         cy.get("@response").then((response) => {
