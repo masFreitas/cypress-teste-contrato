@@ -60,7 +60,7 @@ describe("API Contract Test", () => {
         });
     });
 
-    it.only("Update User Details (PUT) - Should validate the contract", () => {
+    it("Update User Details (PUT) - Should validate the contract", () => {
         cy.updateUserPut().as("response");
 
         cy.get("@response").then((response) => {
