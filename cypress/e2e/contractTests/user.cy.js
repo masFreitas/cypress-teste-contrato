@@ -38,7 +38,6 @@ describe("API Contract Test", () => {
 
         cy.get("@response").then((response) => {
             expect(response.status).to.eq(201);
-            console.log(response.body);
 
             const validate = ajv.compile(createUserSchema);
             const valid = validate(response.body);
@@ -51,7 +50,20 @@ describe("API Contract Test", () => {
         cy.updateUserPatch().as("response");
 
         cy.get("@response").then((response) => {
-            console.log(response.body);
+            expect(response.status).to.eq(200);
+            expect(response.body.name).to.eq("Fulano de Tal");
+
+            const validate = ajv.compile(createUserSchema);
+            const valid = validate(response.body);
+
+            expect(valid, "Invalid API contract").to.be.true;
+        });
+    });
+
+    it.only("Update User Details (PUT) - Should validate the contract", () => {
+        cy.updateUserPut().as("response");
+
+        cy.get("@response").then((response) => {
             expect(response.status).to.eq(200);
             expect(response.body.name).to.eq("Fulano de Tal");
 

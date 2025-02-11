@@ -42,6 +42,22 @@ Cypress.Commands.add('updateUserPatch', () => {
     });
 });
 
+Cypress.Commands.add('updateUserPut', () => {
+    cy.request("GET", "/users").then((response) => {
+        const id = response.body[0].id;
+        cy.request({
+            method: 'PUT',
+            url: `/users/${id}`,
+            headers: { Authorization: `Bearer ${Cypress.env('token')}` },
+            body: {
+                name: "Fulano de Tal",
+                email: utils.getRandomEmail(),
+                gender: 'female',
+                status: 'active'
+            }
+        });
+    });
+});
 
 
 // POST COMMANDS
