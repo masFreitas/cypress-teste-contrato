@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cypress run"
   },
   "keywords": [],
   "author": "",
@@ -11,6 +11,7 @@
   "description": "",
   "devDependencies": {
     "ajv": "^8.17.1",
-    "cypress": "^14.0.2"
+    "cypress": "^14.0.2",
+    "cypress-mochawesome-reporter": "^3.8.2"
   }
 }

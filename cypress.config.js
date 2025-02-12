@@ -6,8 +6,13 @@ module.exports = defineConfig({
     screenshotOnRunFailure: false,
     video: false,
     watchForFileChanges: false,
+    reporter: 'cypress-mochawesome-reporter',
+    reporterOptions: {
+      charts: true,
+      reportPageTitle: 'Cypress API Contract Test Reporter',
+    },
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      require('cypress-mochawesome-reporter/plugin')(on);
     },
   },
 });
