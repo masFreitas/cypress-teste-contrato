@@ -78,7 +78,7 @@ describe("Users - API Contract Test", () => {
         });
     });
 
-    it.only("Delete User - Should validate the contract", () => {
+    it("Delete User - Should validate the contract", () => {
         cy.deleteUser().as("response");
 
         cy.get("@response").then((response) => {
