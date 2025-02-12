@@ -6,7 +6,11 @@ const listAllUserSchema = require("../../support/schemas/user/listAllUserSchema.
 const createUserSchema = require("../../support/schemas/user/createUserSchema.json");
 const listSingleUserSchema = require("../../support/schemas/user/listSingleUserSchema.json");
 
-describe("API Contract Test", () => {
+before(() => {
+    cy.createUser();
+});
+
+describe("Users - API Contract Test", () => {
     it("List All Users - Should validate the contract", () => {
         cy.getUsers().as("response");
 
