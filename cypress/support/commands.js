@@ -77,3 +77,27 @@ Cypress.Commands.add('deleteUser', () => {
 Cypress.Commands.add('getPosts', () => {
     cy.request("GET", "/posts")
 });
+
+Cypress.Commands.add("getSinglePost", () => {
+    cy.request("GET", "/posts").then((response) => {
+        const id = response.body[0].id;
+        cy.request("GET", `/posts/${id}`);
+    });
+});
+
+Cypress.Commands.add("createPost", () => {
+    cy.request("GET", "/users").then((response) => {
+        const userId = response.body[0].id;
+
+        cy.request({
+            method: 'POST',
+            url: '/posts',
+            headers: { Authorization: `Bearer ${Cypress.env('token')}` },
+            body: {
+                user_id: userId,
+                title: "Post Title",
+                body: "Post Body"
+            }
+        });
+    })
+});
