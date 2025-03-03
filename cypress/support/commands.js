@@ -149,3 +149,84 @@ Cypress.Commands.add('deletePost', () => {
         });
     });
 });
+
+
+// COMMENTS COMMANDS
+
+Cypress.Commands.add('getComments', () => {
+    cy.request("GET", "/comments")
+});
+
+Cypress.Commands.add('getSingleComments', () => {
+    cy.request("GET", "/comments").then((response) => {
+        const commentId = response.body[0].id;
+        cy.request("GET", `/comments/${commentId}`);
+    });
+});
+
+Cypress.Commands.add('createComment', () => {
+    cy.request("GET", "/posts").then((response) => {
+        const postId = response.body[0].id;
+        cy.request({
+            method: 'POST',
+            url: '/comments',
+            headers: { Authorization: `Bearer ${Cypress.env('token')}` },
+            body: {
+                post_id: postId,
+                name: "Fulano de Tal",
+                email: utils.getRandomEmail(),
+                body: "Comment Body"
+            }
+        });
+    });
+});
+
+Cypress.Commands.add("updateCommentPatch", () => {
+    cy.request("GET", "/comments").then((response) => {
+        const commentId = response.body[0].id;
+
+        cy.request({
+            method: 'PATCH',
+            url: `/comments/${commentId}`,
+            headers: { Authorization: `Bearer ${Cypress.env('token')}` },
+            body: {
+                body: "Comment Body Updated - Patch",
+            }
+        });
+    });
+});
+
+Cypress.Commands.add("updateCommentPut", () => {
+    cy.request("GET", "/comments").then((response) => {
+        const commentId = response.body[0].id;
+
+        cy.request("GET", "/posts").then((response) => {
+            const postId = response.body[0].id;
+
+            cy.request({
+                method: 'PUT',
+                url: `/comments/${commentId}`,
+                headers: { Authorization: `Bearer ${Cypress.env('token')}` },
+                body: {
+                    post_id: postId,
+                    name: "Fulano de Tal",
+                    email: utils.getRandomEmail(),
+                    body: "Comment Body Updated - Put"
+                }
+            });
+        });
+
+
+    });
+});
+
+Cypress.Commands.add('deleteComment', () => {
+    cy.request("GET", "/comments").then((response) => {
+        const commentId = response.body[0].id;
+        cy.request({
+            method: 'DELETE',
+            url: `/comments/${commentId}`,
+            headers: { Authorization: `Bearer ${Cypress.env('token')}` }
+        });
+    });
+});
